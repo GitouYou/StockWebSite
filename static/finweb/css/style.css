@@ -1,0 +1,635 @@
+﻿/** 清除内外边距 **/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */ dl, dt, dd, ul, ol, li, /* list elements 列表元素 */ pre, /* text formatting elements 文本格式元素 */ form, fieldset, legend, button, input, textarea, /* form elements 表单元素 */ th, td /* table elements 表格元素 */ {
+	margin: 0;
+	padding: 0;
+}
+/** 设置默认字体 **/
+ul, ol, li {
+	list-style-type: none;
+}
+body, button, input, select, textarea /* for ie */ {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size: 12px;
+	text-rendering: auto;
+}
+address, cite, dfn, em, var, i {
+	font-style: normal;
+} /* 将斜体扶正 */
+img {
+	max-width: 100%;
+}
+code, kbd, pre, samp {
+	font-family: courier new, courier, monospace;
+} /* 统一等宽字体 */
+small {
+	font-size: 12px;
+} /* 小于 12px 的中文很难阅读，让 small 正常化 */
+/** 重置列表元素 **/
+li {
+	line-height: normal;
+}
+/** 重置文本格式元素 **/
+a {
+	text-decoration: none;
+	color: #666666;
+}
+a:hover {
+	text-decoration: underline;
+	outline: none;
+}
+/** 重置表单元素 **/
+legend {
+	color: #000;
+} /* for ie6 */
+fieldset, img {
+	border: 0;
+} /* img 搭车：让链接里的 img 无边框 */
+button, input, select, textarea {
+	font-size: 12px;
+} /* 使得表单元素在 ie 下能继承字体大小 */
+/* 注：optgroup 无法扶正 */
+/** 重置表格元素
+table { border-collapse: collapse; border-spacing: 0; }
+ **/
+/*去除箭头*/
+textarea {
+	resize: none;
+}
+/* 清除浮动 */
+.ks-clear:after, .clear:after {
+	content: '\20';
+	display: block;
+	height: 0;
+	clear: both;
+}
+.ks-clear, .clear {
+*zoom: 1;
+}
+a:active, a:hover {
+	color: #0091a5;
+	text-decoration: none;
+}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+	margin-bottom: 0;
+}
+*, *:before, *:after {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}/*盒模型--区分所定宽度和border，padding的宽度*/
+/*-------------------</END 重置>-----------------------*/
+
+
+body {
+	overflow-y: scroll;
+	overflow-x: auto;
+	color: #323232;
+}
+.pz_top {
+	float: left;
+	width: 100%;
+	min-width: 1200px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	background-color: #fff;
+}
+.pz_banner {
+	float: left;
+	width: 100%;
+	min-width: 1200px;
+	overflow: hidden;
+	display: block;
+}
+.pz_main {
+	float: left;
+	width: 100%;
+	min-width: 1200px;
+}
+.pz_down {
+	float: left;
+	width: 100%;
+	min-width: 1200px;
+}
+.w_0100 {
+	float: left;
+	width: 100%;
+}
+.w_1200 {
+	margin: 0 auto;
+	max-width: 1200px;
+}
+/*top*/
+.c_1200_1 {
+	float: left;
+	width: 100%;
+	height: 85px;
+}
+.logo {
+	float: left;
+	width: 153px;
+	height: 60px;
+	margin: 13px 0 12px 0;
+}
+.r_menu {
+	float: right;
+	height: 74px;
+	margin: 11px 0 0 0;
+	overflow: hidden;
+}
+/*menu 效果*/
+.menu {
+	float: right;
+	height: 74px;
+}
+.menu ul {
+	float: right;
+}
+.menu ul .nli_1 {
+	float: left;
+	height: 74px;
+}
+.menu ul .nli_1 span .l1_a {
+	float: left;
+	height: 74px;
+	padding: 0 19px 7px 19px;
+}
+.menu ul .nli_1.on span .l1_a, .menu ul .nli_1 span .l1_a:hover {
+	background: url(../images/top_img2.png) bottom center no-repeat;
+}
+.menu ul .nli_1 span .l1_a .chi {
+	float: left;
+	line-height: 60px;
+	color: #323232;
+	font-size: 14px;
+}
+.menu ul .nli_1 span .l1_a:hover .chi, .menu ul .nli_1.on span .l1_a .chi {
+	color: #00a0bc;
+}
+.menu ul .nli_1 span .l1_a .limg {
+	display: none;
+}
+.menu ul .nli_1 span .l1_a b {
+	display: none;
+}
+.menu ul .nli_1 span .l1_a:hover b {
+	display: none;
+}
+.menu ul .nli_2 {
+	float: left;
+	height: 74px;
+}
+.menu ul .nli_2 span .l1_a {
+	float: left;
+	height: 74px;
+	padding: 0 0 7px 19px;
+}
+.menu ul .nli_2 span .l1_a .chi {
+	float: left;
+	line-height: 60px;
+	color: #999999;
+	font-size: 14px;
+	cursor: pointer;
+}
+.menu ul .nli_2 span .l1_a:hover .chi, .menu ul .nli_2.on span .l1_a .chi {
+	color: #00a0bc;
+}
+.menu ul .nli_2 span b {
+	display: none;
+}
+.menu ul .nli_2 span.on b {
+	display: none;
+}
+.menu ul .nli_2 span .l1_a .limg {
+	display: none;
+}
+.menu ul .nli_2 span .l1_a .rimg {
+	float: left;
+	width: 13px;
+	height: 18px;
+	margin: 20px 0 0 10px;
+}
+.menu .sub {
+	display: none;
+}
+.menu .sub .l2 {
+	display: none;
+}
+.small_menu {
+	display: none;
+}
+.hieght_85 {
+	float: left;
+	width: 100%;
+	height: 85px;
+}
+/*banner*/
+.pz_slides_3 {
+	width: 1920px;
+	height: 504px;
+	overflow: hidden;
+	position: relative;
+}
+.pz_slides_3 ._btn {
+	overflow: hidden;
+	position: absolute;
+	right: 24%;
+	bottom: 20px;
+	z-index: 2;
+}
+.pz_slides_3 ._btn ul {
+	overflow: hidden;
+	zoom: 1;
+	float: left;
+}
+.pz_slides_3 ._btn ul li {
+	float: left;
+	width: 66px;
+	height: 8px;
+	margin-left: 11px;
+	background: url(../images/imgplayer.png) -81px -82px no-repeat;
+	cursor: pointer;
+}
+.pz_slides_3 ._btn ul li.on {
+	width: 66px;
+	height: 8px;
+	BACKGROUND-POSITION: 0px -82px
+}
+.pz_slides_3 ._pic {
+	position: relative;
+	height: 100%;
+	z-index: 0;
+}
+.pz_slides_3 ._pic li {
+	zoom: 1;
+	vertical-align: middle;
+	position: relative;
+}
+.pz_slides_3 ._pic li img {
+	width: 1920px;
+	height: 504px;
+	display: block;
+}
+.banner_box_pc .prev,  .banner_box_pc .next {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	margin-top: -47px;
+	display: block;
+	width: 50px;
+	height: 94px;
+	background: url(../images/imgplayer.png) 0px 0px no-repeat;
+	filter: alpha(opacity=100);
+	opacity: 1.0;
+	z-index: 15;
+}
+.banner_box_pc .next {
+	left: auto;
+	right: 0;
+	background-position: -65px 0px;
+}
+.banner_box_pc .prev:hover,  .banner_box_pc .next:hover {
+	filter: alpha(opacity=80);
+	opacity: 0.8;
+}
+.banner_box_pc .prevStop {
+	background-position: 0px 0px;
+}
+.banner_box_pc .nextStop {
+	background-position: -65px 0px;
+}
+.banner_box_pad {
+	display: none;
+}
+.banner_box_phone {
+	display: none;
+}
+/*main 首页了解大华*/
+.c_0100_bg1 {
+	background-color: #f5f6f6;
+}
+.c_1200_2 {
+	float: left;
+	width: 100%;
+	padding: 34px 0 46px 0;
+}
+.title_1 {
+	float: left;
+	width: 100%;
+}
+.title_1 .tit_1 {
+	float: left;
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	color: #333333;
+	font-size: 24px;
+	text-align: center;
+}
+.title_1 .text_1 {
+	float: left;
+	width: 100%;
+	padding: 5px 0;
+	color: #787878;
+	line-height: 21px;
+	text-align: center;
+}
+.t_1200_1 {
+	float: left;
+	width: 100%;
+	margin: 23px 0 0 0;
+}
+.li_6 {
+	float: left;
+	width: 25%;
+	margin: 22px 0 0 0;
+	background: url(../images/main_img3.jpg) bottom right no-repeat;
+}
+/*.li_6:hover{ margin:12px 0 0 0; padding:0 0 10px 0;transition: all 0.5s ease 0s;}*/
+.li_6 .l_41 {
+	float: left;
+	width: 41px;
+	height: 47px;
+	margin: 7px 0 8px 15%;
+}
+.li_6 .l_41 a {
+	float: left;
+	width: 41px;
+	height: 47px;
+}
+.li_6 .l_41 a.bg41_1 {
+	background: url(../images/main_img1.png) no-repeat;
+}
+.li_6:hover .l_41 a.bg41_1 {
+	background: url(../images/main_img1_h.png) no-repeat;
+}
+.li_6 .l_41 a.bg41_2 {
+	background: url(../images/main_img4.png) no-repeat;
+}
+.li_6:hover .l_41 a.bg41_2 {
+	background: url(../images/main_img4_h.png) no-repeat;
+}
+.li_6 .l_41 a.bg41_3 {
+	background: url(../images/main_img5.png) no-repeat;
+}
+.li_6:hover .l_41 a.bg41_3 {
+	background: url(../images/main_img5_h.png) no-repeat;
+}
+.li_6 .l_41 a.bg41_4 {
+	background: url(../images/main_img6.png) no-repeat;
+}
+.li_6:hover .l_41 a.bg41_4 {
+	background: url(../images/main_img6_h.png) no-repeat;
+}
+.li_6 .l_140 {
+	float: left;
+	width: 46%;
+}
+.li_6 .l_140 .t_140_1 {
+	float: left;
+	width: 100%;
+	margin: 12px 0 0 0;
+}
+.li_6 .l_140 .t_140_1 a {
+	float: left;
+	width: 100%;
+	color: #333333;
+	font-size: 14px;
+	line-height: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+.li_6:hover .l_140 .t_140_1 a {
+	color: #00a0bc;
+}
+.li_6 .l_140 .t_140_2 {
+	float: left;
+	width: 100%;
+}
+.li_6 .l_140 .t_140_2 a {
+	float: left;
+	width: 100%;
+	color: #969696;
+	font-size: 12px;
+	line-height: 13px;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.li_6 .l_17 {
+	float: left;
+	width: 17px;
+	height: 17px;
+	margin: 22px 0 0 0;
+	background: url(../images/main_img2.png) no-repeat;
+}
+.li_6:hover .l_17 {
+	background: url(../images/main_img2_h.png) no-repeat;
+}
+.li_6:nth-child(4) {
+	background: 0;
+}
+@font-face {
+	font-family: 'linecons';
+	src:url('../fonts/linecons/linecons.eot');
+	src:url('../fonts/linecons/linecons.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/linecons/linecons.woff') format('woff'),
+		url('../fonts/linecons/linecons.ttf') format('truetype'),
+		url('../fonts/linecons/linecons.svg#linecons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.icon:before {
+	font-family: 'linecons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	display: inline-block;
+	vertical-align: bottom;
+	margin-right: 0.8em;
+	font-size: 1.2em;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-male:before {
+	content: "\f183";
+}
+.icon-arrow-left:before {
+	content: "\e032";
+}
+.icon-arrow-left-2:before {
+	content: "\e034";
+}
+.icon-arrow-left-3:before {
+	content: "\e036";
+}
+.icon-arrow-left-4:before {
+	content: "\e038";
+}
+.icon-arrow-right:before {
+	content: "\e035";
+}
+.icon-arrow-right-2:before {
+	content: "\e037";
+}
+.icon-arrow-right-3:before {
+	content: "\e039";
+}
+.icon-arrow-right-4:before {
+	content: "\e033";
+}
+
+.icon-phone:before {
+	content: "\e000";
+}
+.icon-news:before {
+	content: "\e001";
+}
+.icon-photo:before {
+	content: "\e002";
+}
+
+
+.icon-clip:before {
+	content: "\e01e";
+}
+.
+
+html {
+	color: #000;
+}
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,select,p,blockquote,th,td{
+	margin: 0;
+	padding: 0;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+	display: block;
+}
+
+body {
+	color: #333;
+	font: 12px tahoma, arial, \5b8b\4f53;
+}
+
+input,select,textarea {
+	font-size: 100%;
+}
+
+fieldset,img {
+	border: 0;
+	font-family: Tahoma;
+	vertical-align: middle;
+}
+
+button {
+	border: 0;
+	background:transparent;
+	cursor:pointer;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+ins,a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+ol,ul {
+	list-style: none;
+}
+
+caption,th {
+	text-align: left;
+}
+
+q:before,q:after {
+	content: '';
+}
+
+abbr,acronym {
+	border: 0;
+	font-variant: normal;
+}
+
+sup {
+	vertical-align: baseline;
+}
+
+sub {
+	vertical-align: baseline;
+}
+
+/* because legend doesn't inherit in IE */
+legend {
+	color: #000;
+}
+
+/* clear element float */
+.cf:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+.cf { *zoom: 1; } /* for IE6 IE7 */
+
+/* float element */
+.fl { float: left; }
+.fr { float: right; }
+.fl,.fr { _display: inline; } /* for IE6 */
+
+/* text align */
+.tl { text-align: left; }
+.tr { text-align: right; }
+.tc { text-align: center; }
+
+/* validator tip */
+.tip {
+	display:inline-block;
+	margin-left:10px;
+	line-height:22px;
+}
+
+/* display */
+.show { display:block; }
+.hide { display:none; }
+.inline{ display:inline; }
+.ib{ display: inline-block; }
+
+/* page common style */
+#footer {
+    color: #666666;
+    padding-top: 20px;
+    text-align: center;
+	line-height: 30px;
+}
+.footer-info {
+    text-align: center;
+}
+.footer-info a {
+    color: #666666;
+}
+
+/* fix the "while one input,enter key refresh the page" bug */
+.help-input{
+	border:none;
+	width:0;
+	height:0;
+	background:transparent; /*	for ie7  */
+}

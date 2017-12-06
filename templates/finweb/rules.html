@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> 服务条款</title>
+     {% load staticfiles %}
+<!-- Le styles -->
+<link href="{%static "finweb/css/bootstrap-combined.min.css"%}" rel="stylesheet">
+
+   <!--[if lt IE 9]>
+		<script src="{%static "finweb/js/html5shiv.js"%}"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="{% static "finweb/js/jquery-2.0.0.min.js" %}"></script>
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="{% static "finweb/js/bootstrap.min.js"%}"></script>
+
+    <script type="text/javascript" src="{%static "finweb/js/scripts.js"%}"></script>
+
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+            <div>
+              <h1>
+			  <img src="{%static "finweb/img/logo.png"%}" class="img-circle" width="80" height="80"/>金融证券投资辅助系统 </h1>
+            </div>
+            <hr>
+			<p class="text-left">
+			</p>
+			<div class="navbar navbar-inverse">
+				<div class="navbar-inner">
+					<div class="container-fluid">
+
+					   <a class="btn btn-navbar" data-target=".navbar-responsive-collapse" data-toggle="collapse"></a>
+
+                        <a class="brand" href="#">FinTech</a>
+						<div class="nav-collapse collapse navbar-responsive-collapse">
+							<ul class="nav">
+								<li>
+									<a href="{% url 'index'%}">主页</a>
+								</li>
+								<li>
+									<a href="{% url 'stockinfo' %}">个股信息</a>
+								</li>
+								<li>
+									<a href="{% url 'operate' %}">股票操作</a>
+								</li>
+								<li>
+									<a href="{% url 'quant'%}">量化投资</a>
+								</li>
+								<li>
+									<a href="{% url 'userinfo' %}">用户信息管理</a>
+								</li>
+							</ul>
+							<ul class="nav pull-right">
+						      <li class="dropdown pull-right">
+								  {% if user.is_authenticated %}
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">欢迎，{{ user.username }}</a>
+									<ul class="dropdown-menu" >
+										<li>
+											<a href="{% url 'changepassword' %}">修改密码</a>
+										</li>
+										<li>
+											<a href="{% url 'changeinfo' %}">修改个人信息</a>
+										</li>
+										<li>
+											<a href="{% url 'logout' %}">退出</a>
+										</li>
+									</ul>
+								  {% else %}
+								    <a href="#" data-toggle="dropdown" class="dropdown-toggle">登录/注册</a>
+									<ul class="dropdown-menu" >
+										<li>
+											<a href="{% url 'login' %}">登录</a>
+										</li>
+										<li>
+											<a href="{% url 'register'%}">注册</a>
+										</li>
+									</ul>
+								  {% endif %}
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+            <hr>
+            <br/>
+            <br/>
+			<div class="row-fluid">
+				<div class="span2">
+				</div>
+				<div class="span8">
+
+					<h3 class="text-center">
+						FinWeb网站服务条款
+					</h3>
+					<p class=".lead">
+						【首部及导言】
+					</p>
+					<p>
+						<br /> 欢迎您使用FinTech的服务！<br /> 为使用FinTech的服务，您应当阅读并遵守《FinTech服务协议》（以下简称“本协议”）和《finweb号码规则》。请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制责任的条款、管辖与法律适用条款，以及开通或使用某项服务的单独协议。限制、免责条款可能以黑体加粗或加下划线的形式提示您重点注意。除非您已阅读并接受本协议所有条款，否则您无权使用FinTech提供的服务。您使用FinTech的服务即视为您已阅读并同意上述协议的约束。<br /> 如果您未满18周岁，请在法定监护人的陪同下阅读本协议，并特别注意未成年人使用条款。
+					</p>
+					<dl>
+						<dt>
+							一、【协议的范围】<br/>
+						</dt>
+
+						<dd>
+							<br/>1.1本协议是您与FinTech之间关于用户使用FinTech相关服务所订立的协议。“FinTech”是指FinTech公司及其相关服务可能存在的运营关联单位。“用户”是指使用FinTech相关服务的使用人，在本协议中更多地称为“您”。<br />
+						</dd>
+                        <br/>
+						<dt>
+							二、【帐号与密码安全】<br />
+						</dt>
+						<dd>
+							<br /> 2.1您在使用FinTech的服务时可能需要注册一个帐号。关于您使用帐号的具体规则，请遵守《finweb号码规则》和单独协议。
+                            <br />
+                            2.2FinTech特别提醒您应妥善保管您的帐号和密码。当您使用完毕后，应安全退出。因您保管不善可能导致遭受盗号或密码失窃，责任由您自行承担。
+						</dd>
+                        <br />
+						<dt>
+							三、【用户个人信息保护】<br />
+						</dt>
+
+						<dd>
+							<br /> 3.1保护用户个人信息是FinTech的一项基本原则。FinTech将按照本协议及《隐私政策》的规定收集、使用、储存和分享您的个人信息。<br />
+                            3.2您在注册帐号或使用本服务的过程中，可能需要填写一些必要的信息。若国家法律法规有特殊规定的，您需要填写真实的身份信息。若您填写的信息不完整，则无法使用本服务或在使用过程中受到限制。<br />
+                            3.3一般情况下，您可随时浏览、修改自己提交的信息，但出于安全性和身份识别（如号码申诉服务）的考虑，您可能无法修改注册时提供的初始注册信息及其他验证信息。<br />
+                            3.4FinTech将运用各种安全技术和程序建立完善的管理制度来保护您的个人信息，以免遭受未经授权的访问、使用或披露。<br />
+                            3.5FinTech不会将您的个人信息转移或披露给任何非关联的第三方，除非：<br />
+                            （1）相关法律法规或法院、政府机关要求；<br />
+                            （2）为完成合并、分立、收购或资产转让而转移；或<br />
+                            （3）为提供您要求的服务所必需。
+						</dd>
+                         <br />
+						<dt>
+							四、【投资风险提示】<br />
+						</dt>
+
+						<dd>
+							<br /> 15.1您理解并同意，在使用本服务的过程中，可能会遇到不可抗力等风险因素，使本服务发生中断。<br />
+                            15.2在法律允许的范围内，FinTech对以下情形导致的服务中断或受阻不承担责任：<br />
+                            （1）受到计算机病毒、木马或其他恶意程序、黑客攻击的破坏；<br />
+                            （2）用户或FinTech的电脑软件、系统、硬件和通信线路出现故障；<br />
+                            （3）用户操作不当；<br /> （4）用户通过非FinTech授权的方式使用本服务；<br />
+                            （5）其他FinTech无法控制或合理预见的情形。<br />
+                            15.3您理解并同意，FinTech及旗下的包括finweb网站提供的投资理财服务不对收益进行任何形式承诺或保障，用户应当自行对投资建议进行甄别，独自承当依照本服务做出的决策之后任何形式的风险。
+						</dd>
+					</dl>
+                    <p class="pull-right">
+						<a class="btn" href="{% url 'register' %}">返回注册页面»</a>
+					</p>
+
+				</div>
+				<div class="span2">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="tcopyright" class="tcopyright" bossZone="footer" role="contentinfo">
+	<br/>
+	<br/>
+	<br/>
+	<hr>
+<div class="row-fluid">
+				<div class="span3">
+				</div>
+				<div class="span9">
+
+							<div class="center-block">
+								<a href="#" target="_blank" rel="nofollow">关于FinTech</a>
+								| <a href="#" target="_blank" rel="nofollow">About FinWeb</a>
+								| <a href="#" target="_blank" rel="nofollow">服务协议</a>
+								| <a href="#" target="_blank" rel="nofollow">隐私政策</a>
+								| <a href="#" target="_blank" rel="nofollow">开放平台</a>
+								| <a href="#" target="_blank" rel="nofollow">广告服务</a>
+								| <a href="#" target="_blank" rel="nofollow">企业招聘</a>
+								| <a href="#" target="_blank" rel="nofollow">客服中心</a>
+								| <a href="#" target="_blank" rel="nofollow">举报中心</a>
+								| <a href="#" target="_blank" rel="nofollow">网站导航</a>
+							</div>
+
+				</div>
+
+</div>
+<div class="row-fluid">
+				<div class="span4">
+				</div>
+				<div class="span4">
+					<div class="en center-block">
+						Copyright &copy; 1998 - 2017 FinTech. All Rights Reserved
+					</div>
+				</div>
+				<div class="span4">
+				</div>
+</div>
+<div class="row-fluid">
+				<div class="span4">
+				</div>
+				<div class="span4">
+					<div class="center-block">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" target="_blank" rel="nofollow">FinTech公司</a>
+						<a href="#" target="_blank" rel="nofollow">版权所有</a>
+					</div>
+				</div>
+				<div class="span4">
+				</div>
+</div>
+
+
+
+</div>
+</body>
+</html>
+
+

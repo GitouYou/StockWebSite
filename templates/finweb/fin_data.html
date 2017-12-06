@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>个股信息</title>
+     {% load staticfiles %}
+<!-- Le styles -->
+<link href="{%static "finweb/css/bootstrap-combined.min.css"%}" rel="stylesheet">
+
+   <!--[if lt IE 9]>
+		<script src="{%static "finweb/js/html5shiv.js"%}"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="{% static "finweb/js/jquery-2.0.0.min.js" %}"></script>
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="{% static "finweb/js/bootstrap.min.js"%}"></script>
+
+    <script type="text/javascript" src="{%static "finweb/js/scripts.js"%}"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+            <div>
+              <h1>
+			  <img src="{%static "finweb/img/logo.png"%}" class="img-circle" width="80" height="80"/>金融证券投资辅助系统 </h1>
+            </div>
+            <hr>
+			<p class="text-left">
+			</p>
+			<div class="navbar navbar-inverse">
+				<div class="navbar-inner">
+					<div class="container-fluid">
+
+					   <a class="btn btn-navbar" data-target=".navbar-responsive-collapse" data-toggle="collapse"></a>
+
+                        <a class="brand" href="#">FinTech</a>
+						<div class="nav-collapse collapse navbar-responsive-collapse">
+							<ul class="nav">
+								<li>
+									<a href="{% url 'index'%}">主页</a>
+								</li>
+								<li class="active">
+									<a href="{% url 'stockinfo' %}">个股信息</a>
+								</li>
+								<li>
+									<a href="{% url 'operate' %}">股票操作</a>
+								</li>
+								<li>
+									<a href="{% url 'quant'%}">量化投资</a>
+								</li>
+								<li>
+									<a href="{% url 'userinfo' %}">用户信息管理</a>
+								</li>
+							</ul>
+							<ul class="nav pull-right">
+						      <li class="dropdown pull-right">
+								  {% if user.is_authenticated %}
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">欢迎，{{ user.username }}</a>
+									<ul class="dropdown-menu" >
+										<li>
+											<a href="{% url 'changepassword' %}">修改密码</a>
+										</li>
+										<li>
+											<a href="{% url 'changeinfo' %}">修改个人信息</a>
+										</li>
+										<li>
+											<a href="{% url 'logout' %}">退出</a>
+										</li>
+									</ul>
+								  {% else %}
+								    <a href="#" data-toggle="dropdown" class="dropdown-toggle">登录/注册</a>
+									<ul class="dropdown-menu" >
+										<li>
+											<a href="{% url 'login' %}">登录</a>
+										</li>
+										<li>
+											<a href="{% url 'register'%}">注册</a>
+										</li>
+									</ul>
+								  {% endif %}
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+            <hr>
+            <br/>
+            <br/>
+            <div class="row-fluid">
+            <div
+            style="border-right: 7px groove;
+            border-top: 7px groove;
+            background: transprant;
+            border-left: 7px groove;
+           border-bottom: 7px groove;
+            height: 425px"
+            align=left
+            class="span2">
+          <ul class="nav nav-list">
+            <li class="nav-header"> 个股信息 </li>
+             <li class="divider"> </li>
+            <li > <a href="{% url 'stockinfo' %}">行情图表</a> </li>
+              <li class="divider"> </li>
+            <li > <a href="{% url 'indicator' %}">技术指标</a> </li>
+             <li class="divider"> </li>
+			  <li class="active"> <a href="{% url 'fin_data' %}">财务数据</a> </li>
+              <li class="divider"> </li>
+              <li> <a href="{% url 'notices' %}">个股公告</a> </li>
+          </ul>
+        </div>
+        <div class="span1"></div>
+		<div class="span9"
+		style="BORDER-RIGHT: 3px inset;
+          BORDER-TOP: 3px inset;
+          BACKGROUND: #ffffff;
+          BORDER-LEFT: 3px inset;
+          height:425px
+          BORDER- BOTTOM: 3px inset;
+          align=left ">
+			<div class="span1"></div>
+        <div class="span9">
+           <h3 class="text-center">财务数据</h3>
+        <hr>
+        <br/>
+			<div class="span12">
+				<div class="span6">
+					<div style="display:inline">
+                        <h3>{{ stock.name }}&nbsp; ({{stock.code}})</h3>
+					</div>
+
+				</div>
+
+                <div span="span6">
+
+                </div>
+			</div>
+
+
+			<div class="span12">
+                     <table class="table table-hover table-striped table-condensed">
+			  <caption>基本情况</caption>
+						 <br/>
+			  <thead>
+			  <tr>
+				  <th>所属行业</th>
+				  <th>地区</th>
+            	  <th>市盈率</th>
+				  <th>市净率</th>
+				  <th>毛利率(%)</th>
+				  <th>净利润率(%)</th>
+			  </tr>
+               </thead>
+   			<tbody>
+            <tr>
+				<td><span>{{ stock.basic_dic.industry }}</span></td>
+				<td><span>{{ stock.basic_dic.area }}</span></td>
+				<td><span>{{ stock.basic_dic.pe }}</span></td>
+				<td><span>{{ stock.basic_dic.pb }}</span></td>
+				<td><span>{{ stock.basic_dic.gpr }}</span></td>
+				<td><span>{{ stock.basic_dic.npr }}</span></td>
+           </tr>
+
+
+           </tbody>
+		  </table>
+				<br/>
+				 <table class="table table-hover table-striped table-condensed">
+			  <thead>
+			  <tr>
+				  <th>每股收益</th>
+				  <th>每股净资产</th>
+            	  <th>每股未分配利润</th>
+				  <th>每股公积金</th>
+				  <th>收入同比(%)</th>
+				  <th>利润同比(%)</th>
+			  </tr>
+               </thead>
+   			<tbody>
+            <tr>
+				<td><span>{{ stock.basic_dic.esp }}</span></td>
+				<td><span>{{ stock.basic_dic.bvps }}</span></td>
+				<td><span>{{ stock.basic_dic.perundp }}</span></td>
+				<td><span>{{ stock.basic_dic.reservedpershare }}</span></td>
+				<td><span>{{ stock.basic_dic.rev }}</span></td>
+				<td><span>{{ stock.basic_dic.profit }}</span></td>
+           </tr>
+
+
+           </tbody>
+		  </table>
+            <br/>
+				<br/>
+				<br/>
+				 <table class="table table-hover table-striped table-condensed">
+					  <caption>业绩报告</caption>
+						 <br/>
+			  <thead>
+			  <tr>
+				  <th>净利润(万元)</th>
+				  <th>净利润同比(%)</th>
+				  <th>净资产收益率(%)</th>
+				  <th>每股现金流(元)</th>
+				  <th>每股净资产</th>
+
+			  </tr>
+               </thead>
+   			<tbody>
+            <tr>
+				<td><span>{{ stock.report_dic.net_profits }}</span></td>
+				<td><span>{{ stock.report_dic.profits_yoy }}</span></td>
+				<td><span>{{ stock.report_dic.roe }}</span></td>
+				<td><span>{{ stock.report_dic.epcf }}</span></td>
+				<td><span>{{ stock.report_dic.bvps }}</span></td>
+           </tr>
+
+           </tbody>
+		  </table>
+				 <br/>
+				<br/>
+				<br/>
+				 <table class="table table-hover table-striped table-condensed">
+					  <caption>盈利能力</caption>
+						 <br/>
+			  <thead>
+			  <tr>
+				  <th>营业收入(百万元)</th>
+
+				  <th>每股主营业务收入(元)</th>
+
+
+			  </tr>
+               </thead>
+   			<tbody>
+            <tr>
+				<td><span>{{ stock.profit_dic.business_income }}</span></td>
+				<td><span>{{ stock.profit_dic.bips }}</span></td>
+
+           </tr>
+
+           </tbody>
+		  </table>
+				 <br/>
+				<br/>
+				<br/>
+				 <table class="table table-hover table-striped table-condensed">
+					  <caption>成长能力</caption>
+						 <br/>
+			  <thead>
+			  <tr>
+				  <th>主营业务收入增长率(%)</th>
+				  <th>净利润增长率(%)</th>
+				  <th>净资产增长率</th>
+				  <th>总资产增长率</th>
+				  <th>每股收益增长率</th>
+                    <th>股东权益增长率</th>
+			  </tr>
+               </thead>
+   			<tbody>
+            <tr>
+				<td><span>{{ stock.growth_dic.mbrg }}</span></td>
+				<td><span>{{ stock.growth_dic.nprg }}</span></td>
+				<td><span>{{ stock.growth_dic.nav }}</span></td>
+				<td><span>{{ stock.growth_dic.targ }}</span></td>
+				<td><span>{{ stock.growth_dic.epsg }}</span></td>
+				<td><span>{{ stock.growth_dic.seg }}</span></td>
+           </tr>
+
+           </tbody>
+		  </table>
+			</div>
+
+
+
+
+        </div>
+
+        <div class="span2"> </div>
+			<br/><br/><br/><br/><br/>
+			</div>
+
+      </div>
+
+        </div>
+	</div>
+</div>
+
+</body>
+</html>

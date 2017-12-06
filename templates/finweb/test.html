@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <h1>This is a test!</h1>
+       <select id="index_select" class="selectpicker" name="index">
+            <option value="000001">上证指数</option>
+            <option value="399001">深证成指</option>
+            <option value="399006">创业板指</option>
+       </select>
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+       <script type="text/javascript">
+
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+var index = $("#index_select option:selected").val()
+
+// 初始 option
+option = {
+    title: {
+        text: '异步数据加载示例'
+    },
+    tooltip: {},
+    legend: {
+        data:['销量']
+    },
+    xAxis: {
+        data: []
+    },
+    yAxis: {},
+    series: [{
+        name: '销量',
+        type: 'bar',
+        data: []
+    }]
+};
+
+
+alert("before get!")
+$.getJSON('/finweb/echarts/',{'index':index}, function (data) {
+
+   alert("get return!")
+   myChart.setOption({
+        xAxis: {
+            data: data.categories
+        },
+        series: [{
+            // 根据名字对应到相应的系列
+            name: '销量',
+            data: data.data
+        }]
+    });
+    alert("option set!")
+
+});;
+alert("after get!")
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>

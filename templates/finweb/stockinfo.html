@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>个股信息</title>
+     {% load staticfiles %}
+<!-- Le styles -->
+<link href="{%static "finweb/css/bootstrap-combined.min.css"%}" rel="stylesheet">
+
+   <!--[if lt IE 9]>
+		<script src="{%static "finweb/js/html5shiv.js"%}"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="{% static "finweb/js/jquery-2.0.0.min.js" %}"></script>
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="{% static "finweb/js/bootstrap.min.js"%}"></script>
+
+    <script type="text/javascript" src="{%static "finweb/js/scripts.js"%}"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+            <div>
+              <h1>
+			  <img src="{%static "finweb/img/logo.png"%}" class="img-circle" width="80" height="80"/>金融证券投资辅助系统 </h1>
+            </div>
+            <hr>
+			<p class="text-left">
+			</p>
+			<div class="navbar navbar-inverse">
+				<div class="navbar-inner">
+					<div class="container-fluid">
+
+					   <a class="btn btn-navbar" data-target=".navbar-responsive-collapse" data-toggle="collapse"></a>
+
+                        <a class="brand" href="#">FinTech</a>
+						<div class="nav-collapse collapse navbar-responsive-collapse">
+							<ul class="nav">
+								<li>
+									<a href="{% url 'index'%}">主页</a>
+								</li>
+								<li class="active">
+									<a href="{% url 'stockinfo' %}">个股信息</a>
+								</li>
+								<li>
+									<a href="{% url 'operate' %}">股票操作</a>
+								</li>
+								<li>
+									<a href="{% url 'quant'%}">量化投资</a>
+								</li>
+								<li>
+									<a href="{% url 'userinfo' %}">用户信息管理</a>
+								</li>
+							</ul>
+							<ul class="nav pull-right">
+						      <li class="dropdown pull-right">
+								  {% if user.is_authenticated %}
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">欢迎，{{ user.username }}</a>
+									<ul class="dropdown-menu" >
+										<li>
+											<a href="{% url 'changepassword' %}">修改密码</a>
+										</li>
+										<li>
+											<a href="{% url 'changeinfo' %}">修改个人信息</a>
+										</li>
+										<li>
+											<a href="{% url 'logout' %}">退出</a>
+										</li>
+									</ul>
+								  {% else %}
+								    <a href="#" data-toggle="dropdown" class="dropdown-toggle">登录/注册</a>
+									<ul class="dropdown-menu" >
+										<li>
+											<a href="{% url 'login' %}">登录</a>
+										</li>
+										<li>
+											<a href="{% url 'register'%}">注册</a>
+										</li>
+									</ul>
+								  {% endif %}
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+            <hr>
+            <br/>
+            <br/>
+            <div class="row-fluid">
+            <div
+            style="border-right: 7px groove;
+            border-top: 7px groove;
+            background: transprant;
+            border-left: 7px groove;
+           border-bottom: 7px groove;
+            height: 425px"
+            align=left
+            class="span2">
+          <ul class="nav nav-list">
+            <li class="nav-header"> 个股信息 </li>
+             <li class="divider"> </li>
+            <li class="active"> <a href="{% url 'stockinfo' %}">行情图表</a> </li>
+              <li class="divider"> </li>
+            <li > <a href="{% url 'indicator' %}">技术指标</a> </li>
+             <li class="divider"> </li>
+			  <li> <a href="{% url 'fin_data' %}">财务数据</a> </li>
+              <li class="divider"> </li>
+              <li> <a href="{% url 'notices' %}">个股公告</a> </li>
+          </ul>
+        </div>
+        <div class="span1"></div>
+		<div class="span9"
+		style="BORDER-RIGHT: 3px inset;
+          BORDER-TOP: 3px inset;
+          BACKGROUND: #ffffff;
+          BORDER-LEFT: 3px inset;
+          height:425px
+          BORDER- BOTTOM: 3px inset;
+          align=left ">
+			<div class="span1"></div>
+        <div class="span10">
+           <h3 class="text-center">行情图表</h3>
+        <hr>
+        <br/>
+			<div class="span12">
+				<div class="span6">
+					<div style="display:inline">
+					  	<h3>{{ stock.name }}&nbsp; ({{stock.code}})<span class="price color change">&nbsp;&nbsp;&nbsp;&nbsp;
+							{{ stock.price }}</span></h3>
+
+					</div>
+
+				</div>
+
+				<div class="span6">
+
+    <div class="control-group">
+          <!-- Text input-->
+        <br/>
+            <input class="input-medium search-query" name="code" id="code_input" type="text" placeholder="请输入股票代码"/>
+            <button id="search_btn" class="btn">查找</button>
+
+      </div>
+        <br/>
+
+        <div id="myAlert" class="alert alert-warning" style="VISIBILITY: hidden;">
+    	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	        <strong>股票代码不存在或者暂不支持</strong>
+         </div>
+
+				</div>
+			</div>
+
+			<div class="span12" style="display:inline">
+				<span class="label">幅度：</span>.
+				<span class="percent color change">{{ stock.percent }}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="label">涨跌：</span>.
+				<span class="updown color change">{{  stock.updown }}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="label">开盘：</span>.
+				{% if stock.open >= stock.pre_close %}
+				<span class="open color_open" style="color:#C03">{{ stock.open }}</span>
+				{% else %}
+				<span class="open color_open" style="color:#00DB00">{{ stock.open }}</span>
+				{% endif %}
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="label">收盘：</span>.
+				 <span class="pre_close">{{ stock.pre_close }}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="label">最高：</span>.
+				<span class="high color_high change">{{ stock.high }}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="label">最低：</span>.
+				<span class="low color_low change">{{ stock.low }}</span>
+
+			</div>
+
+			<div class="span12">
+				<br/><br/>
+
+				<div class="tabbable"><!-- Only required for left/right tabs -->
+					<ul class="nav nav-tabs">
+						<li class="active"><a  data-toggle="tab" href="#panel_day">分时图</a></li>
+						<li id="k_chart"><a data-toggle="tab" href="#panel_k">K线图</a></li>
+					</ul>
+
+				<div class="tab-content">
+					<div class="tab-pane active" id="panel_day">
+                     <img id="day_pic" src="{{ stock.day_url }}"/>
+					</div>
+
+                 <div class="tab-pane" id="panel_k">
+					 <!--<div id="container" style="width:680px;height:420px"></div>-->
+                     <div id="container" style="width:650px;height:360px;" ></div>
+				 </div>
+				</div>
+                </div>
+
+			</div>
+			<div class="span12">
+			<div class="span6"></div>
+
+			<div style="display:inline" class="span6">
+				<br/>
+				<br/>
+				{% ifequal is_from_stocks True%}
+				<button class="btn btn-primary"id="delete_info_stock" value="{{ stock.code }}">取消自选</button>
+				{% else %}
+				<button class="btn btn-primary"id="add_info_stock" value="{{ stock.code }}">加入自选</button>
+				{% endifequal %}
+				{% if portfolio_list %}
+				<select id="portfolio_select" class="input-small" name="portfolio">
+					    {% for p_list in portfolio_list %}
+         			    <option value="{{ p_list.name }}">{{ p_list.name }}</option>
+					    {% endfor %}
+				</select>
+				<button id="add" class="btn btn-primary" value="{{ stock.code }}">加入投资组合</button>
+				{% else %}
+				<a class="btn" href="{% url 'add_portfolio' %}">创建组合</a>
+				{% endif %}
+                <br/> <br/> <br/> <br/> <br/> <br/>
+			</div>
+			</div>
+			<br/>
+              <br/>
+			<br/>
+              <br/><br/>
+              <br/><br/>
+
+
+        </div>
+
+        <div class="span1"> </div>
+			<br/><br/><br/><br/><br/>
+			</div>
+
+      </div>
+
+        </div>
+	</div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					<span style="color:#C03">警告！</span>
+				</h4>
+			</div>
+			<div class="modal-body">
+				股票代码不存在或暂不支持
+			</div>
+
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+<script src="{% static "finweb/js/stockinfo.js" %}"></script>
+</body>
+</html>

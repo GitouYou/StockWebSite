@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>股票操作</title>
+     {% load staticfiles %}
+<!-- Le styles -->
+<link href="{%static "finweb/css/bootstrap-combined.min.css"%}" rel="stylesheet">
+
+   <!--[if lt IE 9]>
+		<script src="{%static "finweb/js/html5shiv.js"%}"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="{% static "finweb/js/jquery-2.0.0.min.js" %}"></script>
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="{% static "finweb/js/bootstrap.min.js"%}"></script>
+
+    <script type="text/javascript" src="{%static "finweb/js/scripts.js"%}"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+            <div>
+              <h1>
+			  <img src="{%static "finweb/img/logo.png"%}" class="img-circle" width="80" height="80"/>金融证券投资辅助系统 </h1>
+            </div>
+            <hr>
+			<p class="text-left">
+			</p>
+			<div class="navbar navbar-inverse">
+				<div class="navbar-inner">
+					<div class="container-fluid">
+
+					   <a class="btn btn-navbar" data-target=".navbar-responsive-collapse" data-toggle="collapse"></a>
+
+                        <a class="brand" href="#">FinTech</a>
+						<div class="nav-collapse collapse navbar-responsive-collapse">
+							<ul class="nav">
+								<li>
+									<a href="{% url 'index'%}">主页</a>
+								</li>
+								<li>
+									<a href="{% url 'stockinfo' %}">个股信息</a>
+								</li>
+								<li class="active">
+									<a href="{% url 'operate' %}">股票操作</a>
+								</li>
+								<li>
+									<a href="{% url 'quant'%}">量化投资</a>
+								</li>
+								<li>
+									<a href="{% url 'userinfo' %}">用户信息管理</a>
+								</li>
+							</ul>
+							<ul class="nav pull-right">
+						      <li class="dropdown pull-right">
+								  {% if user.is_authenticated %}
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">欢迎，{{ user.username }}</a>
+									<ul class="dropdown-menu" >
+										<li>
+											<a href="{% url 'changepassword' %}">修改密码</a>
+										</li>
+										<li>
+											<a href="{% url 'changeinfo' %}">修改个人信息</a>
+										</li>
+										<li>
+											<a href="{% url 'logout' %}">退出</a>
+										</li>
+									</ul>
+								  {% else %}
+								    <a href="#" data-toggle="dropdown" class="dropdown-toggle">登录/注册</a>
+									<ul class="dropdown-menu" >
+										<li>
+											<a href="{% url 'login' %}">登录</a>
+										</li>
+										<li>
+											<a href="{% url 'register'%}">注册</a>
+										</li>
+									</ul>
+								  {% endif %}
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+            <hr>
+            <br/>
+            <br/>
+            <div class="row-fluid">
+            <div
+            style="border-right: 7px groove;
+            border-top: 7px groove;
+            background: transprant;
+            border-left: 7px groove;
+           border-bottom: 7px groove;
+            height: 425px"
+            align=left
+            class="span2">
+          <ul class="nav nav-list">
+            <li class="nav-header"> 股票操作 </li>
+             <li class="divider"> </li>
+            <li > <a href="{% url 'operate' %}">查询个股</a> </li>
+              <li class="divider"> </li>
+            <li class="active"> <a href="{% url 'stocks' %}">自选股</a> </li>
+             <li class="divider"> </li>
+			  <li> <a href="{% url 'add_portfolio' %}">创建组合</a> </li>
+              <li> <a href="{% url 'portfolio' %}">投资组合</a> </li>
+          </ul>
+        </div>
+        <div class="span1"></div>
+		<div class="span9"
+		style="BORDER-RIGHT: 3px inset;
+          BORDER-TOP: 3px inset;
+          BACKGROUND: #ffffff;
+          BORDER-LEFT: 3px inset;
+          height:425px
+          BORDER- BOTTOM: 3px inset;
+          align=left ">
+			<div class="span1"></div>
+        <div class="span8">
+           <h3 class="text-center">自选股列表</h3>
+        <hr>
+        <br/>
+          <table class="table table-hover table-striped table-condensed">
+			  <thead>
+			  <tr>
+				  <th>        </th>
+            	  <th>最新</th>
+				  <th>涨幅</th>
+				  <th>涨跌</th>
+				  <th>开盘</th>
+				  <th>昨收</th>
+				  <th>最高</th>
+				  <th>最低</th>
+				  <th><span id="all_none">全选</span></th>
+			  </tr>
+               </thead>
+   			<tbody>
+			{% for list in stock_list %}
+            <tr id="{{ list.code }}">
+				<td><a style="text-decoration:none" class="name">{{ list.name }}</a></td>
+				<td><span class="price color change">{{ list.price }}</span></td>
+				<td><span class="percent color change">{{ list.percent }}</span></td>
+				<td><span class="updown color change">{{  list.updown }}</span></td>
+				{% if list.open >= list.pre_close %}
+				<td><span class="open color_open" style="color:#C03">{{ list.open }}</span></td>
+				{% else %}
+				<td><span class="open color_open" style="color:#00DB00">{{ list.open }}</span></td>
+				{% endif %}
+				<td><span class="pre_close">{{ list.pre_close }}</span></td>
+				<td><span class="high color_high change">{{ list.high }}</span></td>
+				<td><span class="low color_low change">{{ list.low }}</span></td>
+				<td><input type="checkbox" value="{{ list.code }}" name="code_list" class="box"></td>
+           </tr>
+			{% empty %}
+                <tr class="info">
+					<td>没有自选股</td>
+					<td><span>- - </span></td>
+					<td><span>- - </span></td>
+					<td><span>- - </span></td>
+					<td><span>- - </span></td>
+					<td><span>- - </span></td>
+					<td><span>- - </span></td>
+					<td><span>- - </span></td>
+					<td><span>- - </span></td>
+				</tr>
+			{% endfor %}
+
+           </tbody>
+		  </table>
+			<div class="span12">
+			<div class="span6"></div>
+
+			<div style="display:inline" class="span6">
+				<br/>
+				<br/>
+				<button class="btn btn-primary"id="delete" >删除自选股</button>
+				{% if portfolio_list %}
+				<select id="portfolio_select" class="input-small" name="portfolio">
+					    {% for p_list in portfolio_list %}
+         			    <option value="{{ p_list.name }}">{{ p_list.name }}</option>
+					    {% endfor %}
+				</select>
+				<button id="add" class="btn btn-primary">加入投资组合</button>
+				{% else %}
+				<a class="btn" href="{% url 'add_portfolio' %}">创建组合</a>
+				{% endif %}
+
+			</div>
+			</div>
+			<br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>  <br/>  <br/>  <br/>  <br/>  <br/>  <br/>
+        </div>
+
+        <div class="span3"> </div>
+			</div>
+
+      </div>
+
+        </div>
+	</div>
+</div>
+
+<script src="{% static "finweb/js/stocks.js" %}"></script>
+</body>
+</html>

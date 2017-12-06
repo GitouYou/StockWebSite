@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+         {% load staticfiles %}
+<!-- Le styles -->
+   <link href="{%static "finweb/css/bootstrap-combined.min.css"%}" rel="stylesheet">
+
+   <!--[if lt IE 9]>
+		<script src="{%static "finweb/js/html5shiv.js"%}"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="{% static "finweb/js/jquery-2.0.0.min.js" %}"></script>
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="{% static "finweb/js/bootstrap.min.js"%}"></script>
+
+    <script type="text/javascript" src="{%static "finweb/js/scripts.js"%}"></script>
+</head>
+<body>
+           <div class="row-fluid">
+                {% for news in news_list1 %}
+    　　　　　　
+				<div class="span4">
+					<h3>
+						　{{ news.title }}
+					</h3>
+					<p>
+						{{ news.content }}
+					</p>
+					<p class="pull-left">
+						<a class="btn" href="{{ news.url }}">查看更多 »</a>
+					</p>
+                    <p class="pull-right">
+                    <span>时间：{{ news.time }}</span>
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>分类：{{ news.classify  }}</span>
+                    </p>
+
+				</div>
+                {% empty %}
+                <h3>获取新闻失败，请重试</h3>
+                {% endfor %}
+
+			</div>
+             <div class="row-fluid">
+                {% for news in news_list2 %}
+    　　　　　　
+				<div class="span4">
+					<h3>
+						　{{ news.title }}
+					</h3>
+					<p>
+						{{ news.content }}
+					</p>
+					<p class="pull-left">
+						<a class="btn" href="{{ news.url }}">查看更多 »</a>
+					</p>
+                    <p class="pull-right">
+                    <span>时间：{{ news.time }}</span>
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>分类：{{ news.classify  }}</span>
+                    </p>
+
+				</div>
+
+                {% empty %}
+                <h3>获取新闻失败，请重试</h3>
+                {% endfor %}
+
+			</div>
+
+
+
+</body>
+</html>

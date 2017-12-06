@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+       <meta charset="utf-8">
+
+</head>
+
+
+
+
+<body>
+
+<select id="index_select" class="selectpicker" name="index">
+  <option value="00001">上证指数</option>
+  <option value="399001">深证成指</option>
+  <option value="399006">创业板指</option>
+</select>
+
+
+<button id="button">点击</button>
+
+<div id="main" style="height: 100%">
+
+
+</div>
+
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+
+
+<script  type="text/javascript">
+
+
+  $(document).ready(function(){
+      var myChart = echarts.init(document.getElementById('main'));
+  var app = {};
+  option = null;
+// 显示标题，图例和空的坐标轴
+  myChart.setOption({
+    title: {
+        text: '异步数据加载示例'
+    },
+    tooltip: {},
+    legend: {
+        data:['销量']
+    },
+    xAxis: {
+        data: []
+    },
+    yAxis: {},
+    series: [{
+        name: '销量',
+        type: 'bar',
+        data: []
+    }]
+});
+
+
+// 异步加载数据
+  var index = $("#index_select option:selected").val()
+    $("#button").click(function(){
+
+        $.getJSON("{% url 'echarts' %}", function(ret){
+             console.log("WTF!!!!!")
+             console.log(ret.data);
+             console.log(ret.categories);
+             // 填入数据
+            myChart.setOption({
+                xAxis: {
+                  data: ret.categories
+                },
+                series: [{
+                // 根据名字对应到相应的系列
+                 name: '销量',
+                 data: ret.data
+                }]
+             });
+
+         });
+
+     });
+
+   });
+
+
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+
+
+</script>
+</body>
+</html>
+

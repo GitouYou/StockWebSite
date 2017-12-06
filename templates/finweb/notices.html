@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>个股信息</title>
+     {% load staticfiles %}
+<!-- Le styles -->
+<link href="{%static "finweb/css/bootstrap-combined.min.css"%}" rel="stylesheet">
+
+   <!--[if lt IE 9]>
+		<script src="{%static "finweb/js/html5shiv.js"%}"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="{% static "finweb/js/jquery-2.0.0.min.js" %}"></script>
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="{% static "finweb/js/bootstrap.min.js"%}"></script>
+
+    <script type="text/javascript" src="{%static "finweb/js/scripts.js"%}"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+            <div>
+              <h1>
+			  <img src="{%static "finweb/img/logo.png"%}" class="img-circle" width="80" height="80"/>金融证券投资辅助系统 </h1>
+            </div>
+            <hr>
+			<p class="text-left">
+			</p>
+			<div class="navbar navbar-inverse">
+				<div class="navbar-inner">
+					<div class="container-fluid">
+
+					   <a class="btn btn-navbar" data-target=".navbar-responsive-collapse" data-toggle="collapse"></a>
+
+                        <a class="brand" href="#">FinTech</a>
+						<div class="nav-collapse collapse navbar-responsive-collapse">
+							<ul class="nav">
+								<li>
+									<a href="{% url 'index'%}">主页</a>
+								</li>
+								<li class="active">
+									<a href="{% url 'stockinfo' %}">个股信息</a>
+								</li>
+								<li>
+									<a href="{% url 'operate' %}">股票操作</a>
+								</li>
+								<li>
+									<a href="{% url 'quant'%}">量化投资</a>
+								</li>
+								<li>
+									<a href="{% url 'userinfo' %}">用户信息管理</a>
+								</li>
+							</ul>
+							<ul class="nav pull-right">
+						      <li class="dropdown pull-right">
+								  {% if user.is_authenticated %}
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">欢迎，{{ user.username }}</a>
+									<ul class="dropdown-menu" >
+										<li>
+											<a href="{% url 'changepassword' %}">修改密码</a>
+										</li>
+										<li>
+											<a href="{% url 'changeinfo' %}">修改个人信息</a>
+										</li>
+										<li>
+											<a href="{% url 'logout' %}">退出</a>
+										</li>
+									</ul>
+								  {% else %}
+								    <a href="#" data-toggle="dropdown" class="dropdown-toggle">登录/注册</a>
+									<ul class="dropdown-menu" >
+										<li>
+											<a href="{% url 'login' %}">登录</a>
+										</li>
+										<li>
+											<a href="{% url 'register'%}">注册</a>
+										</li>
+									</ul>
+								  {% endif %}
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+            <hr>
+            <br/>
+            <br/>
+            <div class="row-fluid">
+            <div
+            style="border-right: 7px groove;
+            border-top: 7px groove;
+            background: transprant;
+            border-left: 7px groove;
+           border-bottom: 7px groove;
+            height: 425px"
+            align=left
+            class="span2">
+          <ul class="nav nav-list">
+            <li class="nav-header"> 个股信息 </li>
+             <li class="divider"> </li>
+            <li > <a href="{% url 'stockinfo' %}">行情图表</a> </li>
+              <li class="divider"> </li>
+            <li > <a href="{% url 'indicator' %}">技术指标</a> </li>
+             <li class="divider"> </li>
+			  <li > <a href="{% url 'fin_data' %}">财务数据</a> </li>
+              <li class="divider"> </li>
+              <li class="active"> <a href="{% url 'notices' %}">个股公告</a> </li>
+          </ul>
+        </div>
+        <div class="span1"></div>
+		<div class="span9"
+		style="BORDER-RIGHT: 3px inset;
+          BORDER-TOP: 3px inset;
+          BACKGROUND: #ffffff;
+          BORDER-LEFT: 3px inset;
+          height:425px
+          BORDER- BOTTOM: 3px inset;
+          align=left ">
+			<div class="span1"></div>
+        <div class="span9">
+           <h3 class="text-center">个股公告</h3>
+        <hr>
+        <br/>
+			<div class="span12">
+				<div class="span6">
+					<div style="display:inline">
+                        <h3>{{ stock.name }}&nbsp; ({{stock.code}})</h3>
+					</div>
+
+				</div>
+
+                <div span="span6">
+
+                </div>
+			</div>
+
+
+			<div class="span12">
+				<br/><br/>
+				 <table class="table table-hover table-striped table-condensed">
+			  <thead>
+			  <tr>
+				  <th>标题</th>
+            	  <th>类型</th>
+				  <th>日期</th>
+
+
+			  </tr>
+               </thead>
+   			<tbody>
+			{% for dic in stock.notices %}
+            <tr>
+				<td><a style="text-decoration:none" href="{{ dic.url }}">{{ dic.title }}</a></td>
+				<td><span>{{ dic.type }}</span></td>
+				<td><span>{{ dic.date }}</span></td>
+
+           </tr>
+			{% empty %}
+                <tr class="info">
+					<td>没有公告</td>
+					<td><span>- - </span></td>
+					<td><span>- - </span></td>
+
+				</tr>
+			{% endfor %}
+
+           </tbody>
+		  </table>
+
+				<br/><br/>
+			</div>
+
+
+
+
+        </div>
+
+        <div class="span2"> </div>
+			<br/><br/><br/><br/><br/>
+			</div>
+
+      </div>
+
+        </div>
+	</div>
+</div>
+
+</body>
+</html>
